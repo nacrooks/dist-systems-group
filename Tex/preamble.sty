@@ -1,0 +1,242 @@
+% Latex Template - Distributed Systems Group - UC Berkeley 2020
+
+\pdfminorversion=4
+
+% Package list. Please add packages alphabetically with a quick note
+% of what they do
+% ================================================
+\usepackage[ruled]{algorithm2e}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{appendix}
+\usepackage{balance}
+\usepackage{blindtext}
+\usepackage[font={it,small}]{caption}
+\usepackage{changepage}
+\usepackage{color}
+\usepackage{comment} % enables easy commenting of lines of text
+\usepackage{enumitem} %adds an easy way to customise margins for enums and itemize, incompatible with savetrees[moderate]
+\usepackage{etoolbox}
+\usepackage[export]{adjustbox}
+\usepackage{ifthen}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{hyperref} 
+\usepackage{makecell} % easy way to break lines latex
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage[numbers,sort&compress,square]{natbib}
+\usepackage[normalem]{ulem} % Defines strikeout Breaks bibtex
+\usepackage{parskip}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{pseudocode}
+\usepackage[group-separator={,}]{siunitx}
+\usepackage[compact]{titlesec}
+\usepackage{soul}
+\usepackage{subfloat}
+\usepackage{subfigure}
+\usepackage{textcomp}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage{times}
+\usepackage{url}
+\usepackage{xspace}
+
+% PDF Configuration
+% ================================================
+% Reduce bibliography space
+\setlength{\bibsep}{3pt plus 4pt}
+% Format PDF
+\hypersetup{breaklinks=true,
+  bookmarks=true, pdfauthor={Potter, Harry}, pdftitle={My Greatest Work},
+  colorlinks=true,
+  citecolor=blue,
+  urlcolor=blue,
+  linkcolor=blue,
+  pdfborder={0 0 0}}
+% TODO
+\sloppy
+% TODO
+\frenchspacing
+% TODO
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+% ================================================
+
+% Template Options
+% ================================================
+% If set, ensures that all comments are removed
+\newboolean{publicversion}
+% If set, ensures that is appropriately referred to as TR
+\newboolean{tr}
+% If set, ensures that appropriate elements are anonymised
+\newboolean{optanon}
+% If set, activates space saving tricks
+\newboolean{compress}
+% If set, activates Usenix formatting
+\newboolean{usenix}
+% If set, activates ACM formatting
+\newboolean{acm}
+
+% Default values
+\setboolean{tr}{false}
+\setboolean{publicversion}{false}
+\setboolean{compress}{fales}
+\setboolean{optanon}{false}
+\setboolean{usenix}{false}
+\setboolean{acm}{false}
+% ================================================
+
+% Conference Style 
+% ================================================
+\ifthenselse{\boolean{usenix}}{
+    % Makes sure that the usenix package is regularly updated
+    \usepackage{usenix}
+}{
+    \ifthenselve{\boolean{acm}} {
+
+    }
+}
+% ================================================
+
+% Space-saving Options 
+% ================================================
+\ifthenelse{\boolean{compress}}{
+  % Space savings commands go here
+  \setlength{\tabcolsep}{0.25in}
+  \setlist[itemize]{leftmargin=*}
+  \setlist[enumerate]{leftmargin=*}
+  \usepackage[subtle,wordspacing=normal]{savetrees} % Saves space
+  \setlength{\parskip}{2pt plus 1mm minus 1mm} %No line skip
+  \setlength{\parindent}{5pt} % Default is 15pt. 
+  \setlength\abovedisplayskip{2pt plus 2pt minus 2pt}% minimises space above display maths
+  \setlength\belowdisplayskip{2pt plus 2pt minus 2pt}% minimises space below displaymaths
+  \setlength{\abovecaptionskip}{1pt} % minimises space below caption
+  \setlength{\belowcaptionskip}{1pt} % minimises space below caption
+  \setlength\floatsep{2pt plus  0pt minus 0pt}
+  \setlength\textfloatsep{3pt plus 0pt minus 0pt}
+} 
+{
+}
+
+% ================================================
+
+
+% Commenting Options 
+% ================================================
+\definecolor{gold}{RGB}{218,165,32}
+\definecolor{lightblue}{rgb}{0.6,1.0,0.6}
+
+\ifthenelse{\boolean{publicversion}}{
+  % Comments deactivated
+  \newcommand{\grumbler}[2]{}
+  \newcommand{\changebars}[2]{#1}
+  \newcommand{\pagelimit}[1]{}
+  \newcommand{\todo}[1]{}
+} 
+{
+  \newcommand{\grumbler}[2]{{{\bf #1:} #2}}
+  \newcommand{\pagelimit}[1]{{\hl{ #1 pages }}}
+  \newcommand{\changebars}[2]{{[check]}[{\em \color{red}#1}] [{\sout {\em #2}]}}
+  \newcommand{\todo}[1]{{{\color{red} TODO: #1}}}
+}
+
+% User-specific grumblers
+\newcommand{\hp}[1]{{\color{cyan}\grumbler{harry:}{#1}}}
+\newcommand{\rw}[1]{{\color{green}\grumbler{ron}{#1}}}
+% ================================================
+
+% Anonymising options
+% ================================================
+ \ifthenelse{\boolean{optanon}}%
+   {\newcommand{\anonAndNonAnon}[2]{#1}}%
+   {\newcommand{\anonAndNonAnon}[2]{#2}}
+% ================================================
+ 
+% Technical Report Options
+% ================================================
+ \ifthenelse{\boolean{tr}}{
+    \newcommand{\tr}[2]{#1}
+}
+{
+    \newcommand{\tr}[2]{#2}
+}
+% ================================================
+ 
+
+% Supplemental Commands 
+% ===============================================
+% Experiments
+% Checkmarks
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+% Enumeration
+\newcommand{\one}{({\em i}\/)\xspace}
+\newcommand{\two}{({\em ii}\/)\xspace}
+\newcommand{\three}{({\em iii}\/)\xspace}
+\newcommand{\four}{({\em iv}\/)\xspace}
+\newcommand{\five}{({\em v}\/)\xspace}
+
+% Symbols
+\newcommand{\tinydag}{\textsuperscript{\dag}}
+\newcommand{\tinyddag}{\textsuperscript{\ddag}}
+\newcommand{\tinystar}{\textsuperscript{\S}}
+
+% Table Formatting
+% Define table new line
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+%Align left single column
+\newcommand{\alignleft}[1]{\multicolumn{1}{l}{#1}}
+%Align right single column
+\newcommand{\alignright}[1]{\multicolumn{1}{r}{#1}}
+%Align center single column
+\newcommand{\aligncenter}[1]{\multicolumn{1}{c}{#1}}
+
+
+% Theorems
+\newtheoremstyle{indented}
+{1pt}   % ABOVESPACE
+{1pt}   % BELOWSPACE
+{\itshape}  % BODYFONT
+{1pt}       % INDENT (empty value is the same as 0pt)
+{\bfseries} % HEADFONT
+{}         % HEADPUNCT
+{2pt plus 1pt minus 1pt} % HEADSPACE
+{}          % CUSTOM-HEAD-SPEC
+
+\newtheoremstyle{noindent}
+{2pt}   % ABOVESPACE
+{2pt}   % BELOWSPACE
+{\itshape}  % BODYFONT
+{0pt}       % INDENT (empty value is the same as 0pt)
+{\bfseries} % HEADFONT
+{}         % HEADPUNCT
+{2pt plus 1pt minus 1pt} % HEADSPACE
+{}          % CUSTOM-HEAD-SPEC
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{noindent}
+\newtheorem{lemma-noindent}{Lemma}
+\newtheorem{theorem-noindent}{Theorem}
+
+% Creates a pprof sketch environment
+\newenvironment{sketch}{%
+  \renewcommand{\proofname}{Proof sketch}\proof}{\endproof}
+
+% Appendix
+\addcontentsline{toc}{chapter}{Appendix}
+
+% ================================================
+
+% Project-specific commands
+% ================================================
+\newcommand{\sys}{MySystem\xspace}
+% ================================================
+
