@@ -1,0 +1,75 @@
+% This Latex template file set ups a two column paper with several
+% options. 
+% The ACM option (to be set inside preamble.sty)
+% The Usenix option (to be set inside preamble.sty)
+% It also implements (as options) space saving and commenting options
+% (also in preamble.sty)
+
+
+% When using Usenix, choose this: 
+\documentclass[letterpaper,twocolumn,10pt]{article}
+% When using ACM, choose this
+%\documentclass[sigplan]{acmart}
+
+
+\usepackage{preamble}
+
+
+\ifthenelse{\boolean{acm}}{
+% Rights management information.  This information is sent to you
+% when you complete the rights form.  These commands have SAMPLE
+% values in them; it is your responsibility as an author to replace
+% the commands and values with those provided to you when you
+% complete the rights form.
+\setcopyright{acmcopyright}
+\copyrightyear{2018}
+\acmYear{2018}
+\acmDOI{10.1145/1122445.1122456}
+
+%%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[Woodstock '18]{Woodstock '18: ACM Symposium on Neural
+  Gaze Detection}{June 03--05, 2018}{Woodstock, NY}
+\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+  June 03--05, 2018, Woodstock, NY}
+\acmPrice{15.00}
+\acmISBN{978-1-4503-XXXX-X/18/06}
+}
+
+\begin{document}
+
+\date{}
+\ifthenelse{\boolean{acm}}{
+    \author{Harry Potter \tinydag}
+    \author{Ron Weasley \tinydag}
+    \affiliation{\small{\tinydag{} Slytherin} \country{}}
+    \author{Severus Snape \tinyddag}
+    \author{Draco Malfoy \tinyddag}
+   \affiliation{\small{\tinyddag{} Gryffindor} \country{}}
+}{
+\author{
+\begin{tabular}{c@{\hspace{3em}}c@{\hspace{3em}}c}
+Harry Potter\tinydag & Ronald Weasley\tinydag\\[0.25em]
+Severus Snape\tinyddag & Draco Malfoy\tinyddag 
+\end{tabular}\\[1.5em]
+\tinydag{}Gryffindor\hspace{3em} \tinyddag{}Slytherin
+}
+}
+
+\title{My Great Paper}
+\maketitle
+
+% Sections go here, each in separate file
+\input{example-section}
+
+\bibliographystyle{abbrv}
+\bibliography{refs}
+
+% Appendix go here in TR
+\tr{
+\newpage
+\onecolumn
+\appendix
+\input{appendix}
+}{}
+
+\end{document}

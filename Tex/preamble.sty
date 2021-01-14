@@ -1,14 +1,13 @@
 % Latex Template - Distributed Systems Group - UC Berkeley 2020
 
-\pdfminorversion=4
 
 % Package list. Please add packages alphabetically with a quick note
 % of what they do
 % ================================================
 \usepackage[ruled]{algorithm2e}
+\usepackage[noend]{algpseudocode}
 \usepackage{amsthm}
 \usepackage{amsmath}
-\usepackage{amssymb}
 \usepackage{array}
 \usepackage{appendix}
 \usepackage{balance}
@@ -20,15 +19,14 @@
 \usepackage{enumitem} %adds an easy way to customise margins for enums and itemize, incompatible with savetrees[moderate]
 \usepackage{etoolbox}
 \usepackage[export]{adjustbox}
+\usepackage{filecontents}
 \usepackage{ifthen}
 \usepackage[utf8]{inputenc}
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{hyperref} 
 \usepackage{makecell} % easy way to break lines latex
-\usepackage{microtype}
+\usepackage{mdframed}
 \usepackage{multirow}
-\usepackage[numbers,sort&compress,square]{natbib}
-\usepackage[normalem]{ulem} % Defines strikeout Breaks bibtex
 \usepackage{parskip}
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 \usepackage{pseudocode}
@@ -38,15 +36,16 @@
 \usepackage{subfloat}
 \usepackage{subfigure}
 \usepackage{textcomp}
-\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage{tikz}
 \usepackage{times}
 \usepackage{url}
 \usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{xurl}
+
 
 % PDF Configuration
 % ================================================
-% Reduce bibliography space
-\setlength{\bibsep}{3pt plus 4pt}
 % Format PDF
 \hypersetup{breaklinks=true,
   bookmarks=true, pdfauthor={Potter, Harry}, pdftitle={My Greatest Work},
@@ -82,33 +81,36 @@
 \newboolean{acm}
 
 % Default values
-\setboolean{tr}{false}
+\setboolean{tr}{true}
 \setboolean{publicversion}{false}
-\setboolean{compress}{fales}
+\setboolean{compress}{false}
 \setboolean{optanon}{false}
-\setboolean{usenix}{false}
+\setboolean{usenix}{true}
 \setboolean{acm}{false}
 % ================================================
 
 % Conference Style 
 % ================================================
-\ifthenselse{\boolean{usenix}}{
+\ifthenelse{\boolean{usenix}}{
     % Makes sure that the usenix package is regularly updated
-    \usepackage{usenix}
+    \usepackage{usenix-2020-09}
+    % These packages are not compatible with ACM
+    \usepackage[numbers,sort&compress,square]{natbib}
+    \usepackage[normalem]{ulem} % Defines strikeout Breaks bibtex
 }{
-    \ifthenselve{\boolean{acm}} {
-
-    }
+    \ifthenelse{\boolean{acm}} {
+    
+    }{}
 }
 % ================================================
 
 % Space-saving Options 
 % ================================================
 \ifthenelse{\boolean{compress}}{
-  % Space savings commands go here
   \setlength{\tabcolsep}{0.25in}
   \setlist[itemize]{leftmargin=*}
   \setlist[enumerate]{leftmargin=*}
+  \setlist{itemsep=0pt,parsep=0pt}             % more compact lists
   \usepackage[subtle,wordspacing=normal]{savetrees} % Saves space
   \setlength{\parskip}{2pt plus 1mm minus 1mm} %No line skip
   \setlength{\parindent}{5pt} % Default is 15pt. 
