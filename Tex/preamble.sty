@@ -16,6 +16,7 @@
 \usepackage{changepage}
 \usepackage{color}
 \usepackage{comment} % enables easy commenting of lines of text
+\usepackage{draftwatermark}
 \usepackage{enumitem} %adds an easy way to customise margins for enums and itemize, incompatible with savetrees[moderate]
 \usepackage{etoolbox}
 \usepackage[export]{adjustbox}
@@ -42,8 +43,6 @@
 \usepackage{xspace}
 \usepackage{xcolor}
 \usepackage{xurl}
-
-
 % PDF Configuration
 % ================================================
 % Format PDF
@@ -62,6 +61,11 @@
 \makeatletter
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\patchcmd{\maketitle}
+{\@maketitle}
+{\@maketitle\vspace{-1em}}% change the value as needed
+{}
+{}
 \makeatother
 % ================================================
 
@@ -140,6 +144,7 @@
   \newcommand{\todo}[1]{}
 } 
 {
+  \SetWatermarkText{DRAFT}
   \newcommand{\grumbler}[2]{{{\bf #1:} #2}}
   \newcommand{\pagelimit}[1]{{\hl{ #1 pages }}}
   \newcommand{\changebars}[2]{{[check]}[{\em \color{red}#1}] [{\sout {\em #2}]}}
